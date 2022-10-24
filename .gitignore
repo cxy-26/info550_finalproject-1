@@ -1,0 +1,4 @@
+output/*.rds
+output/*.RData
+*.html
+*.DS_Store
