@@ -12,4 +12,4 @@ explore_box:
 
 .PHONY: clean
 clean:
-	rm -f output/*.rds output/*.RData QiYu_ProjectReport.html
+	rm -f output/*.rds output/*.RData output/*.Rdata QiYu_ProjectReport.html

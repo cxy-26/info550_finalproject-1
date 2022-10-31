@@ -22,8 +22,8 @@ knitr::opts_chunk$set(
 First, we load the data.
 ```{r}
 #| echo = T
-here::i_am("QiYu_projectdataset.Rmd")
-data <- read.csv("diabetes.csv")
+here::i_am("QiYu_ProjectReport.Rmd")
+load("output/data.Rdata")
 ```
 
 
@@ -38,7 +38,6 @@ library(ggpubr)
 
 ```{r, include = F}
 #data |> glimpse()
-data$Outcome <- as.factor(data$Outcome)
 data |> glimpse()
 ```
 
@@ -49,14 +48,11 @@ Second, we check the data.
 
 Table 1 and table 2 shows the contents of the dataset. As shown in figure 1 and 2, there are eight medical predictor variables and one dummy outcome variable representing whether or not the patients have diabetes. As shown, among eight predictor variables, "BMI" and "Diabetes Pedigree Function" are continuous variables, while other six varibles are integer variable.
 ```{r}
-kable(data[1:5,], "pipe", align = "c", caption = "Table 1: First five rows of the dataset")
+table1
 ```
 
 ```{r}
-data |> 
-  summary() |>
-  kable("pipe", align = "c", caption = "Table 2: Summary Statistics of the dataset")
-
+table2
 ```
 
 
@@ -70,96 +66,8 @@ Based on this exploratory analysis, an outlier analysis is recommended before co
 ```{r}
 #| fig.align = "center",
 #| out.width = "600px"
-hist_pregnancies <- ggplot(data, aes(x = Pregnancies)) +
-  geom_histogram(color = "darkblue", fill = "lightblue") +
-  labs(title = "Pregnancies", x = "Pregnancies", y = "Count") +
-  theme_minimal()
-
-box_pregnancies <- ggplot(data, aes(x = Pregnancies)) +
-  geom_boxplot(color = "darkblue", fill = "lightblue") +
-  labs(title = "Pregnancies", x = "Pregnancies") +
-  theme_minimal()
-
-hist_glucose <- ggplot(data, aes(x = Glucose)) +
-  geom_histogram(color = "darkblue", fill = "lightblue") +
-  labs(title = "Glucose", x = "Glucose", y = "Count") +
-  theme_minimal()
-
-box_glucose <- ggplot(data, aes(x = Glucose)) +
-  geom_boxplot(color = "darkblue", fill = "lightblue") +
-  labs(title = "Glucose", x = "Glucose") +
-  theme_minimal()
-
-
-hist_blood <- ggplot(data, aes(x = BloodPressure)) +
-  geom_histogram(color = "darkblue", fill = "lightblue") +
-  labs(title = "BloodPressure", x = "BloodPressure", y = "Count") +
-  theme_minimal()
-
-box_blood <- ggplot(data, aes(x = BloodPressure)) +
-  geom_boxplot(color = "darkblue", fill = "lightblue") +
-  labs(title = "BloodPressure", x = "BloodPressure") +
-  theme_minimal()
-
-
-hist_skin <- ggplot(data, aes(x = SkinThickness)) +
-  geom_histogram(color = "darkblue", fill = "lightblue") +
-  labs(title = "SkinThickness", x = "SkinThickness", y = "Count") +
-  theme_minimal()
-
-box_skin <- ggplot(data, aes(x = SkinThickness)) +
-  geom_boxplot(color = "darkblue", fill = "lightblue") +
-  labs(title = "SkinThickness", x = "SkinThickness") +
-  theme_minimal()
-
-
-hist_insulin <- ggplot(data, aes(x = Insulin)) +
-  geom_histogram(color = "darkblue", fill = "lightblue") +
-  labs(title = "Insulin", x = "Insulin", y = "Count") +
-  theme_minimal()
-
-box_insulin <- ggplot(data, aes(x = Insulin)) +
-  geom_boxplot(color = "darkblue", fill = "lightblue") +
-  labs(title = "Insulin", x = "Insulin") +
-  theme_minimal()
-
-
-hist_bmi <- ggplot(data, aes(x = BMI)) +
-  geom_histogram(color = "darkblue", fill = "lightblue") +
-  labs(title = "BMI", x = "BMI", y = "Count") +
-  theme_minimal()
-
-box_bmi <- ggplot(data, aes(x = BMI)) +
-  geom_boxplot(color = "darkblue", fill = "lightblue") +
-  labs(title = "BMI", x = "BMI") +
-  theme_minimal()
-
-hist_pedigree <- ggplot(data, aes(x = DiabetesPedigreeFunction)) +
-  geom_histogram(color = "darkblue", fill = "lightblue") +
-  labs(title = "Diabetes Pedigree", x = "DiabetesPedigreeFunction", y = "Count") +
-  theme_minimal()
-
-box_pedigree <- ggplot(data, aes(x = DiabetesPedigreeFunction)) +
-  geom_boxplot(color = "darkblue", fill = "lightblue") +
-  labs(title = "Diabetes Pedigree", x = "DiabetesPedigreeFunction") +
-  theme_minimal()
-
-hist_age <- ggplot(data, aes(x = Age)) +
-  geom_histogram(color = "darkblue", fill = "lightblue") +
-  labs(title = "Age", x = "Age", y = "Count") +
-  theme_minimal()
-
-box_age <- ggplot(data, aes(x = Age)) +
-  geom_boxplot(color = "darkblue", fill = "lightblue") +
-  labs(title = "Age", x = "Age") +
-  theme_minimal()
-
-count_outcome <- ggplot(data, aes(x = Outcome)) +
-  stat_count(fill = "steelblue", width = 0.3) +
-  labs(title = "Outcome", x = "Outcome", y = "Count") +
-  theme_minimal()
-
-#ggplot(stack(data[1:7]), aes(x = "predictor varibales", y = "values")) + geom_boxplot(color = "darkblue", fill = "lightblue")
+load("output/boxplots.RData")
+load("output/histagram.RData")
 
 his_plots <- ggarrange(hist_skin, hist_pedigree, hist_bmi, hist_insulin, hist_age, hist_blood, hist_glucose, count_outcome,
           labels = c("A", "B", "C", "D", "E", "F", "G","H"), 
