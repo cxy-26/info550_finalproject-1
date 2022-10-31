@@ -1,4 +1,9 @@
 here::i_am("code/01_data.R")
+
+list.of.packages <- c("tidyr", "dplyr", "knitr", "ggplot2", "patchwork", "ggpubr")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
 library(tidyr)
 library(dplyr)
 library(knitr)
