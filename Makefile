@@ -13,3 +13,8 @@ explore_box:
 .PHONY: clean
 clean:
 	rm -f output/*.rds output/*.RData output/*.Rdata QiYu_ProjectReport.html
+	
+.PHONY: install
+install:
+	Rscript -e "renv::restore(prompt = FALSE)"
+

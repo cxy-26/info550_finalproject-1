@@ -1,5 +1,13 @@
 # Final Project for Info 550 by Qi Yu
 
+## Restoring the package environment
+
+run
+
+```{bash}
+make install
+```
+
 ## Generate Report
 
 run
